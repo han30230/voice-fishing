@@ -48,49 +48,59 @@ export function SiteHeader({ className }: { className?: string }) {
         </Link>
 
         {/* 데스크톱: 대분류 + 호버 드롭다운 (한 줄, 줄바꿈 최소화) */}
-        <nav
-          className="hidden items-center gap-0 lg:flex"
-          aria-label="주요 메뉴"
-        >
+        <nav className="hidden items-center gap-0.5 lg:flex" aria-label="주요 메뉴">
           {navGroups.map((group) => (
             <div key={group.id} className="group/nav relative">
               <button
                 type="button"
-                className="flex items-center gap-0.5 whitespace-nowrap rounded-xl px-2.5 py-2 text-[13px] font-semibold text-muted-foreground transition hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring/40"
+                className="flex items-center gap-1 whitespace-nowrap rounded-xl px-3 py-2 text-[13px] font-semibold text-muted-foreground transition hover:bg-muted/90 hover:text-foreground focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring/40"
                 aria-expanded="false"
                 aria-haspopup="true"
               >
                 {group.label}
-                <ChevronDown className="h-3.5 w-3.5 opacity-70" aria-hidden />
+                <ChevronDown
+                  className="h-3.5 w-3.5 opacity-70 transition-transform duration-200 group-hover/nav:-rotate-180"
+                  aria-hidden
+                />
               </button>
               <div
                 className={cn(
-                  "invisible absolute left-0 top-full z-[70] min-w-[260px] w-max max-w-[min(100vw-2rem,320px)]",
-                  "opacity-0 transition duration-150",
+                  "invisible absolute left-0 top-full z-[70] pt-1.5",
+                  "min-w-[288px] w-max max-w-[min(100vw-2rem,340px)]",
+                  "opacity-0 transition duration-150 ease-out",
                   "pointer-events-none",
                   "group-hover/nav:visible group-hover/nav:opacity-100 group-hover/nav:pointer-events-auto",
                   "focus-within:visible focus-within:opacity-100 focus-within:pointer-events-auto",
                 )}
               >
                 <div
-                  className="overflow-hidden rounded-2xl border border-border/80 bg-surface py-2 shadow-xl shadow-brand/10 ring-1 ring-black/5"
+                  className="overflow-hidden rounded-2xl border border-border/70 bg-surface/95 shadow-[0_16px_48px_-12px_rgb(15_61_122/0.22)] ring-1 ring-black/[0.04] backdrop-blur-sm"
                   role="menu"
                 >
-                  {group.items.map((item) => (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      className="block px-4 py-2.5 text-left transition hover:bg-muted/80"
-                      role="menuitem"
-                    >
-                      <div className="text-[13px] font-semibold text-foreground">{item.label}</div>
-                      {item.description ? (
-                        <div className="mt-0.5 text-[12px] leading-snug text-muted-foreground">
-                          {item.description}
+                  <div className="border-b border-border/50 bg-gradient-to-b from-muted/50 to-muted/20 px-4 py-2.5">
+                    <p className="text-[11px] font-medium leading-relaxed text-muted-foreground">
+                      {group.hint}
+                    </p>
+                  </div>
+                  <div className="py-1">
+                    {group.items.map((item) => (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        className="block px-4 py-2.5 text-left transition hover:bg-muted/70"
+                        role="menuitem"
+                      >
+                        <div className="text-[13px] font-semibold tracking-tight text-foreground">
+                          {item.label}
                         </div>
-                      ) : null}
-                    </Link>
-                  ))}
+                        {item.description ? (
+                          <div className="mt-0.5 text-[12px] leading-snug text-muted-foreground">
+                            {item.description}
+                          </div>
+                        ) : null}
+                      </Link>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
@@ -114,7 +124,7 @@ export function SiteHeader({ className }: { className?: string }) {
           <Button asChild variant="outline" size="sm" className="hidden rounded-xl sm:inline-flex">
             <Link href="/search">
               <Search className="h-4 w-4" aria-hidden />
-              검색
+              통합 검색
             </Link>
           </Button>
           <Button asChild variant="danger" size="sm" className="rounded-xl shadow-md shadow-danger/20">
@@ -145,7 +155,12 @@ export function SiteHeader({ className }: { className?: string }) {
                 onClick={(e) => e.stopPropagation()}
               >
                 <div className="flex shrink-0 items-center justify-between border-b border-border/70 px-4 py-3.5">
-                  <span className="text-[16px] font-semibold text-foreground">메뉴</span>
+                  <div>
+                    <span className="text-[16px] font-semibold text-foreground">메뉴</span>
+                    <p className="mt-0.5 text-[12px] text-muted-foreground">
+                      {SITE_BRAND} · {SITE_TAGLINE_KO}
+                    </p>
+                  </div>
                   <button
                     type="button"
                     className="grid h-11 w-11 place-items-center rounded-xl hover:bg-muted"
@@ -164,20 +179,23 @@ export function SiteHeader({ className }: { className?: string }) {
                       <section key={group.id} aria-labelledby={`mobile-nav-${group.id}`}>
                         <h3
                           id={`mobile-nav-${group.id}`}
-                          className="mb-2 px-0.5 text-[11px] font-bold uppercase tracking-[0.08em] text-muted-foreground"
+                          className="text-[13px] font-semibold tracking-tight text-foreground"
                         >
                           {group.label}
                         </h3>
-                        <div className="overflow-hidden rounded-2xl border border-border/70 bg-background">
+                        <p className="mt-1 px-0.5 text-[12px] leading-relaxed text-muted-foreground">
+                          {group.hint}
+                        </p>
+                        <div className="mt-2 overflow-hidden rounded-2xl border border-border/70 bg-background shadow-sm">
                           <ul className="divide-y divide-border/50">
                             {group.items.map((item) => (
                               <li key={item.href}>
                                 <Link
                                   href={item.href}
-                                  className="block px-4 py-3.5 text-[15px] transition hover:bg-muted active:bg-muted/80"
+                                  className="block px-4 py-3.5 transition hover:bg-muted active:bg-muted/80"
                                   onClick={() => setOpen(false)}
                                 >
-                                  <div className="font-semibold leading-snug text-foreground">
+                                  <div className="text-[15px] font-semibold leading-snug text-foreground">
                                     {item.label}
                                   </div>
                                   {item.description ? (
@@ -192,15 +210,6 @@ export function SiteHeader({ className }: { className?: string }) {
                         </div>
                       </section>
                     ))}
-                    <div className="rounded-2xl border border-border/70 bg-muted/40">
-                      <Link
-                        href="/search"
-                        className="block px-4 py-3.5 text-[15px] font-semibold text-foreground transition hover:bg-muted"
-                        onClick={() => setOpen(false)}
-                      >
-                        검색
-                      </Link>
-                    </div>
                   </div>
                 </nav>
               </div>
