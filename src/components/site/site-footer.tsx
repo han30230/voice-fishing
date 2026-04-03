@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { Shield } from "lucide-react";
 
+import { SITE_BRAND, SITE_TAGLINE_KO } from "@/lib/brand";
+
 const quick = [
   { href: "/check", label: "자가진단" },
   { href: "/emergency", label: "긴급" },
@@ -31,14 +33,15 @@ export function SiteFooter() {
                   <Shield className="h-5 w-5 text-white" aria-hidden />
                 </span>
                 <div>
-                  <div className="text-[16px] font-semibold tracking-tight">안심콜</div>
-                  <div className="text-[13px] text-white/65">보이스피싱·스미싱 대응 안내</div>
+                  <div className="text-[16px] font-semibold tracking-tight">{SITE_BRAND}</div>
+                  <div className="text-[13px] text-white/65">{SITE_TAGLINE_KO}</div>
                 </div>
               </div>
               <p className="mt-4 max-w-md text-[14px] leading-7 text-white/70">
-                이 사이트는 독립적인 실용 안내 서비스입니다. 정부·경찰·금융기관을 사칭하지
-                않습니다. 생명·신체 위험이 있거나 즉시 조치가 필요하면 공식 기관에 먼저
-                연락하세요.
+                본 서비스는 보이스피싱·스미싱 피해 예방 및 초기 대응을 돕기 위한{" "}
+                <span className="text-white/85">비공식 정보 안내</span>입니다. 정부·경찰·금융기관을
+                대리하거나 사칭하지 않습니다. 긴급 위험이 있으면 공식 기관 연락처로 먼저
+                연락하십시오.
               </p>
             </div>
 
@@ -72,8 +75,8 @@ export function SiteFooter() {
           </div>
 
           <div className="mt-10 border-t border-white/10 pt-6 text-[12px] text-white/45">
-            © {new Date().getFullYear()} 안심콜. 운영 시 운영 주체·정책·공식 연락처를 명확히
-            기재하세요.
+            © {new Date().getFullYear()} {SITE_BRAND}. 운영 주체·이용 정책·문의는 하단 사업자
+            정보를 참고하십시오.
             <div className="mt-3 space-y-1 text-white/55">
               <div>대표자: Voice Phishing Guard 한상훈</div>
               <div>통신판매업: 2022-수원영통-1373</div>

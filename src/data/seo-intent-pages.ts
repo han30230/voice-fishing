@@ -4,7 +4,7 @@ const raw: unknown[] = [
   {
     slug: "voice-phishing-money-sent",
     title: "보이스피싱으로 돈 보냈을 때 해야 할 일",
-    seoTitle: "보이스피싱 송금 후 대응 | 안심콜",
+    seoTitle: "보이스피싱 송금 후 대응 | VoiceGuard",
     seoDescription: "송금 직후 멈춤, 지급정지·신고·증거 정리 순서를 행동 중심으로 안내합니다.",
     h1: "보이스피싱으로 돈을 보냈을 때",
     lead: "먼저 ‘추가 송금’을 멈추고, 거래 기관과 공식 신고 절차를 확인하세요. 결과는 사건마다 다릅니다.",
@@ -39,7 +39,7 @@ const raw: unknown[] = [
   {
     slug: "smishing-link-clicked",
     title: "문자 링크를 눌렀을 때 대처법",
-    seoTitle: "스미싱 링크 클릭 후 대응 | 안심콜",
+    seoTitle: "스미싱 링크 클릭 후 대응 | VoiceGuard",
     seoDescription: "연결 차단, 앱·권한 점검, 금융 이상거래 확인까지 순서대로 안내합니다.",
     h1: "문자 링크를 눌렀을 때",
     lead: "로그인·설치까지 갔다면 추가 피해를 막는 것이 우선입니다.",
@@ -66,7 +66,7 @@ const raw: unknown[] = [
   {
     slug: "prosecutor-impersonation-call",
     title: "검찰 사칭 전화 대처법",
-    seoTitle: "검찰 사칭 전화 대응 | 안심콜",
+    seoTitle: "검찰 사칭 전화 대응 | VoiceGuard",
     seoDescription: "통화 중단·공식 확인·증거 보존 중심의 실무 순서입니다.",
     h1: "검찰을 사칭한 전화가 왔을 때",
     lead: "수사기관은 통화만으로 계좌 이체·민감정보·원격제어를 요구하지 않는 경우가 일반적입니다.",
@@ -87,7 +87,7 @@ const raw: unknown[] = [
   {
     slug: "remote-app-installed",
     title: "원격제어 앱을 설치했을 때",
-    seoTitle: "원격제어·악성앱 설치 후 대응 | 안심콜",
+    seoTitle: "원격제어·악성앱 설치 후 대응 | VoiceGuard",
     seoDescription: "연결 끊기, 권한 해제, 다른 기기에서 계정 보호까지 체크리스트로 안내합니다.",
     h1: "원격제어 앱을 설치했을 때",
     lead: "기기가 완전히 안전하다고 단정할 수는 없지만, 피해 확대를 늦출 수 있습니다.",
@@ -104,7 +104,7 @@ const raw: unknown[] = [
   {
     slug: "parent-voice-phishing",
     title: "부모님 보이스피싱 대응법",
-    seoTitle: "부모님 보이스피싱 가족 대응 | 안심콜",
+    seoTitle: "부모님 보이스피싱 가족 대응 | VoiceGuard",
     seoDescription: "비난보다 멈춤·확인·함께 가기. 가족 모드와 증거 정리로 연결합니다.",
     h1: "부모님이 보이스피싱에 당한 것 같을 때",
     lead: "감정이 올라가면 실수가 커질 수 있습니다. ‘멈추고·확인하고·함께’가 순서입니다.",
@@ -125,7 +125,7 @@ const raw: unknown[] = [
   {
     slug: "phone-subscription-check",
     title: "내 명의 휴대폰 개통 확인 방법",
-    seoTitle: "명의 휴대폰 개통 확인 | 안심콜",
+    seoTitle: "명의 휴대폰 개통 확인 | VoiceGuard",
     seoDescription: "가입 통신사·공식 절차를 기준으로 확인하는 방법을 안내합니다.",
     h1: "내 명의로 휴대폰이 개통됐는지 확인하려면",
     lead: "통신사·공인된 절차가 가장 정확합니다. 문자 링크는 피하세요.",
@@ -145,7 +145,7 @@ const raw: unknown[] = [
   {
     slug: "refund-after-report",
     title: "보이스피싱 신고 후 환급 절차",
-    seoTitle: "보이스피싱 신고 후 환급(참고) | 안심콜",
+    seoTitle: "보이스피싱 신고 후 환급(참고) | VoiceGuard",
     seoDescription: "환급·지급정지는 절차와 사건에 따라 다릅니다. 공식 답변을 기준으로 하세요.",
     h1: "신고한 뒤 환급은 어떻게 되나요",
     lead: "환급 여부와 시기는 보장할 수 없습니다. 수사·금융기관의 공식 안내를 따르세요.",
@@ -171,7 +171,7 @@ const raw: unknown[] = [
   {
     slug: "smishing-link-aftermath",
     title: "스미싱 링크 눌렀는데 괜찮은지 확인하는 방법",
-    seoTitle: "스미싱 링크 이후 점검 | 안심콜",
+    seoTitle: "스미싱 링크 이후 점검 | VoiceGuard",
     seoDescription: "‘완전 안전’을 단정하지 않고, 확인 순서와 위험 신호를 안내합니다.",
     h1: "스미싱 링크를 눌렀는데 괜찮은지 모르겠어요",
     lead: "원격 없이 링크만 연 경우와 로그인·설치까지 간 경우 위험이 다릅니다. ‘아무 일 없음’을 보장할 수는 없습니다.",

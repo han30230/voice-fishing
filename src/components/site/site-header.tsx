@@ -7,6 +7,7 @@ import { ChevronDown, Menu, Search, Shield, Siren, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { navGroups } from "@/components/site/site-nav-config";
+import { SITE_BRAND, SITE_TAGLINE_KO } from "@/lib/brand";
 import { cn } from "@/lib/cn";
 
 export function SiteHeader({ className }: { className?: string }) {
@@ -38,10 +39,10 @@ export function SiteHeader({ className }: { className?: string }) {
           </span>
           <div className="min-w-0 leading-tight">
             <div className="truncate text-[16px] font-semibold tracking-tight text-foreground">
-              안심콜
+              {SITE_BRAND}
             </div>
             <div className="truncate text-[12px] font-medium text-muted-foreground">
-              보이스피싱·스미싱 대응
+              {SITE_TAGLINE_KO}
             </div>
           </div>
         </Link>

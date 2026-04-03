@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect } from "react";
 
+import { SITE_BRAND } from "@/lib/brand";
 import { Button } from "@/components/ui/button";
 
 export default function EvidenceError({
@@ -20,7 +21,7 @@ export default function EvidenceError({
     <div className="min-h-screen bg-background">
       <header className="border-b border-border/60 bg-surface/90 px-4 py-3">
         <Link href="/" className="text-[14px] font-semibold text-foreground">
-          ← 안심콜 홈
+          ← {SITE_BRAND} 홈
         </Link>
       </header>
       <div className="mx-auto max-w-lg px-4 py-10">

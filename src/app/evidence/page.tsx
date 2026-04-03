@@ -6,6 +6,7 @@ import { EvidenceOrganizerClient } from "@/components/evidence/evidence-organize
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { SiteShell } from "@/components/site/site-shell";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { SITE_BRAND } from "@/lib/brand";
 
 export const metadata: Metadata = {
   title: "증거 타임라인 정리",
@@ -13,9 +14,9 @@ export const metadata: Metadata = {
     "회원가입 없이 내 기기에 임시 저장하며, 경찰·금융기관·가족 공유용 요약을 복사·인쇄할 수 있습니다. 서버 전송 없음.",
   alternates: { canonical: "/evidence" },
   openGraph: {
-    title: "증거 타임라인 정리 | 안심콜",
+    title: `증거 타임라인 정리 | ${SITE_BRAND}`,
     description:
-      "통화·문자·송금·앱 설치를 시간순으로 정리하고, 신고·상담용 문장을 한 번에 복사합니다.",
+      "통화·문자·송금·앱 설치 사실을 시간순으로 정리하고, 신고·상담 제출용 문안을 일괄 복사할 수 있습니다.",
     url: "/evidence",
   },
 };
