@@ -31,7 +31,7 @@ export default function HelpHubPage() {
         </p>
       </div>
 
-      <div className="mt-6 grid gap-3 md:grid-cols-3">
+      <div className="mt-6 grid gap-3 md:grid-cols-3 lg:grid-cols-4">
         <Card className="border-brand/20">
           <CardHeader>
             <CardTitle className="text-[16px]">공식 연락처 허브</CardTitle>
@@ -73,6 +73,17 @@ export default function HelpHubPage() {
           <CardContent>
             <Button asChild variant="outline" className="w-full rounded-xl">
               <Link href="/help/institutions">이동</Link>
+            </Button>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-[16px]">법률 도움 디렉터리(운영자 입력)</CardTitle>
+            <CardDescription>검증된 출처 링크로만 관리</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Button asChild variant="outline" className="w-full rounded-xl">
+              <Link href="/help/law-firms">이동</Link>
             </Button>
           </CardContent>
         </Card>

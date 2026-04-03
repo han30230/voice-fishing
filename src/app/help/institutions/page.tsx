@@ -84,6 +84,12 @@ export default function InstitutionsReferencePage() {
           점검할 때 쓰는 중립 체크리스트입니다.
         </p>
 
+        <div className="mt-4">
+          <Button asChild variant="outline" className="rounded-2xl">
+            <Link href="/help/law-firms">법률 도움 디렉터리(운영자 입력) 보기</Link>
+          </Button>
+        </div>
+
         <Card className="mt-6">
           <CardHeader>
             <CardTitle>선택 전 체크리스트</CardTitle>

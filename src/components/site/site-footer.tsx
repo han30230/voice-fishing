@@ -12,6 +12,7 @@ const quick = [
   { href: "/guide", label: "상황별 가이드" },
   { href: "/help/contacts", label: "공식 연락처" },
   { href: "/help/institutions", label: "전문기관·법률참고" },
+  { href: "/help/law-firms", label: "법률 디렉터리" },
   { href: "/emergency/app-installed", label: "악성앱 대응" },
   { href: "/identity", label: "명의·2차 피해" },
   { href: "/legal", label: "법률 도움" },
@@ -73,6 +74,11 @@ export function SiteFooter() {
           <div className="mt-10 border-t border-white/10 pt-6 text-[12px] text-white/45">
             © {new Date().getFullYear()} 안심콜. 운영 시 운영 주체·정책·공식 연락처를 명확히
             기재하세요.
+            <div className="mt-3 space-y-1 text-white/55">
+              <div>대표자: Voice Phishing Guard 한상훈</div>
+              <div>통신판매업: 2022-수원영통-1373</div>
+              <div>사업자번호: 610-35-52874</div>
+            </div>
           </div>
         </div>
       </div>

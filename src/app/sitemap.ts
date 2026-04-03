@@ -28,6 +28,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/help",
     "/help/contacts",
     "/help/institutions",
+    "/help/law-firms",
     "/identity",
     "/legal",
     "/guide",

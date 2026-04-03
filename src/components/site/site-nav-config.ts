@@ -39,6 +39,7 @@ export const navGroups: NavGroup[] = [
       { href: "/help", label: "공식 도움 허브", description: "준비물·판단 기준" },
       { href: "/help/contacts", label: "공식 연락처", description: "번호·링크" },
       { href: "/help/institutions", label: "전문 기관·법률 참고", description: "공공 출발점" },
+      { href: "/help/law-firms", label: "법률 도움 디렉터리", description: "운영자 입력형" },
       { href: "/identity", label: "명의·2차 피해", description: "개통·계좌 점검" },
       { href: "/legal", label: "법률 도움", description: "공공지원·체크리스트" },
       { href: "/family", label: "가족/어르신", description: "큰 글씨·대본" },

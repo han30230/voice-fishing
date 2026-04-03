@@ -77,6 +77,12 @@ export function SearchClient() {
         href: "/help/institutions",
         snippet: "공공 출발점·변호사 선택 체크(추천 없음)",
       },
+      {
+        kind: "도움",
+        title: "법률 도움 디렉터리(운영자 입력)",
+        href: "/help/law-firms",
+        snippet: "출처 기반으로만 관리",
+      },
       { kind: "도움", title: "명의·2차 피해 예방", href: "/identity", snippet: "개통·명의 관련 점검" },
       { kind: "도움", title: "법률 도움(공공)", href: "/legal", snippet: "진술·자료 체크리스트" },
     ];

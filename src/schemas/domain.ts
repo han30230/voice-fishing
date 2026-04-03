@@ -223,6 +223,39 @@ export const IdentityProtectionItemSchema = z.object({
 });
 export type IdentityProtectionItem = z.infer<typeof IdentityProtectionItemSchema>;
 
+export const LawFirmSourceSchema = z.object({
+  label: z.string(),
+  url: z.string(),
+});
+export type LawFirmSource = z.infer<typeof LawFirmSourceSchema>;
+
+/**
+ * 운영자 입력용: 법률 도움 디렉터리
+ * - 순위/별점은 "출처가 명확한 경우에 한해" 운영자가 직접 입력
+ * - 이 서비스가 임의 생성/추천하지 않음
+ */
+export const LawFirmEntrySchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  region: z.string().optional(),
+  specialties: z.array(z.string()).default([]),
+  /** 대표번호는 공식 사이트에서 검증한 경우만 입력 */
+  phone: z.string().optional(),
+  website: z.string().optional(),
+  /** 대한변협/협회 등 공식 조회 링크(운영자 검증) */
+  registryUrl: z.string().optional(),
+  /** (선택) 운영자가 출처 기반으로 정리한 요약 */
+  operatorSummary: z.string().optional(),
+  /** (선택) 출처가 있는 평판/평가 요약 */
+  reputationSummary: z.string().optional(),
+  /** (선택) 별점/후기 등은 반드시 출처 링크를 함께 */
+  ratingNote: z.string().optional(),
+  sources: z.array(LawFirmSourceSchema).default([]),
+  verifiedAt: z.string(),
+  cautionNote: z.string().optional(),
+});
+export type LawFirmEntry = z.infer<typeof LawFirmEntrySchema>;
+
 export const SelfCheckQuestionSchema = z.object({
   id: z.string(),
   prompt: z.string(),
