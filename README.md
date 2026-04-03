@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 안심콜 (voice-fishing)
 
-## Getting Started
+한국 사용자 우선의 **보이스피싱·스미싱 대응 운영 플랫폼(MVP)** 입니다. 블로그가 아니라 **긴급 행동(5분) → 회복 → 증거정리 → 공식 도움 연결** 흐름을 제품으로 구현합니다.
 
-First, run the development server:
+## 로컬 실행
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 환경 변수
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+`.env.example` 참고.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `NEXT_PUBLIC_SITE_URL`: canonical/OG/sitemap 기준 URL (예: `https://your-domain.com`)
 
-## Learn More
+## 배포
 
-To learn more about Next.js, take a look at the following resources:
+### GitHub
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+원격 저장소: [`han30230/voice-fishing`](https://github.com/han30230/voice-fishing)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Vercel(권장)
 
-## Deploy on Vercel
+1. GitHub 저장소를 Vercel에 Import
+2. Framework Preset: Next.js
+3. Environment Variables에 `NEXT_PUBLIC_SITE_URL` 설정
+4. Deploy
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 운영 주의(신뢰/법무)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- 이 프로젝트는 **정부/경찰/금융기관 사이트가 아닙니다.**
+- **공식 연락처/절차는 운영자가 검증 후** `src/data/help.ts` 등에 반영하는 방식을 권장합니다.
+- 금전 회복/수사 결과를 보장하는 표현은 사용하지 마세요.
+
+## 문서
+
+- `docs/PLATFORM.md`: 제품 전략/IA/SEO/로드맵(Phase 2) 요약
+- `docs/BRAND_NAMES.md`: 브랜드 네이밍 후보
+- `src/lib/analytics.ts`: 분석 이벤트 설계(플레이스홀더)
+
+## 스크립트
+
+- `npm run dev` — 개발
+- `npm run build` — 프로덕션 빌드
+- `npm run start` — 프로덕션 실행
+- `npm run lint` — ESLint
+

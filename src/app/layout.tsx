@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { getSiteUrl } from "@/lib/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
   },
   description:
     "보이스피싱·스미싱이 의심될 때, 지금 5분 안에 해야 할 일부터 증거 정리·신고 준비까지 상황별로 안내합니다. 한국어 중심, 모바일 우선, 가족/어르신 모드 제공.",
-  metadataBase: new URL("https://example.com"),
+  metadataBase: getSiteUrl(),
   alternates: {
     canonical: "/",
   },

@@ -8,7 +8,10 @@ const nav = [
   { href: "/check", label: "1분 자가진단" },
   { href: "/emergency", label: "긴급 대응" },
   { href: "/scams", label: "유형 라이브러리" },
+  { href: "/recovery", label: "피해 회복" },
   { href: "/evidence", label: "증거 정리" },
+  { href: "/alerts", label: "경보" },
+  { href: "/learn", label: "학습" },
   { href: "/family", label: "가족/어르신" },
   { href: "/help", label: "공식 도움" },
 ];

@@ -30,6 +30,24 @@ const tiles = [
     desc: "계좌 이체/현금 전달/상품권·가상자산 전송",
     icon: Siren,
   },
+  {
+    href: "/emergency/family-help",
+    title: "가족이 당한 것 같아요",
+    desc: "보호자가 개입해야 할 때(비난 없이 멈춤부터)",
+    icon: PhoneCall,
+  },
+  {
+    href: "/emergency/impersonation",
+    title: "기관 사칭 같아요",
+    desc: "검찰·경찰·금감원·은행·택배 등 권위 사칭",
+    icon: ShieldAlert,
+  },
+  {
+    href: "/emergency/device-check",
+    title: "기기 점검이 필요해요",
+    desc: "링크/앱 이후 스마트폰 점검",
+    icon: BadgeAlert,
+  },
 ];
 
 export const metadata = {

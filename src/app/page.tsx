@@ -1,7 +1,6 @@
 import Link from "next/link";
 import {
   ArrowRight,
-  BadgeAlert,
   FileText,
   HeartHandshake,
   PhoneCall,
@@ -11,6 +10,7 @@ import {
 } from "lucide-react";
 
 import { SiteShell } from "@/components/site/site-shell";
+import { HomeQuickTiles } from "@/components/home/home-quick-tiles";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -62,54 +62,59 @@ export default function Home() {
               </Button>
             </div>
 
-            <div className="mt-6 grid gap-3 sm:grid-cols-2">
-              {[
+            <HomeQuickTiles
+              tiles={[
                 {
+                  id: "call",
                   title: "이상한 전화 받음",
                   desc: "기관/은행/검찰·경찰 사칭 같아요",
                   href: "/emergency/call",
-                  icon: BadgeAlert,
+                  icon: "phone",
                 },
                 {
+                  id: "link",
                   title: "문자 링크 클릭함",
                   desc: "URL 눌렀고 뭔가 설치/로그인이 떴어요",
                   href: "/emergency/link-clicked",
-                  icon: BadgeAlert,
+                  icon: "badge",
                 },
                 {
+                  id: "app",
                   title: "앱 설치함",
                   desc: "원격제어/보안앱/인증앱을 설치했어요",
                   href: "/emergency/app-installed",
-                  icon: BadgeAlert,
+                  icon: "smartphone",
                 },
                 {
+                  id: "money",
                   title: "돈 보냄",
                   desc: "송금/이체/현금 전달이 있었어요",
                   href: "/emergency/money-sent",
-                  icon: BadgeAlert,
+                  icon: "siren",
                 },
-              ].map((t) => (
-                <Card key={t.href} className="hover:border-ring/60">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <span className="grid h-9 w-9 place-items-center rounded-xl bg-muted text-brand">
-                        <t.icon className="h-5 w-5" aria-hidden />
-                      </span>
-                      {t.title}
-                    </CardTitle>
-                    <CardDescription>{t.desc}</CardDescription>
-                  </CardHeader>
-                  <CardContent className="pt-0">
-                    <Button asChild variant="outline" className="w-full rounded-xl">
-                      <Link href={t.href}>
-                        지금 5분 대응 보기
-                        <ArrowRight className="h-4 w-4" aria-hidden />
-                      </Link>
-                    </Button>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+                {
+                  id: "family",
+                  title: "가족이 당한 것 같음",
+                  desc: "부모님/가족이 이상한 통화·송금을 하려 해요",
+                  href: "/emergency/family-help",
+                  icon: "users",
+                },
+                {
+                  id: "impersonation",
+                  title: "기관 사칭 같음",
+                  desc: "검찰·경찰·금감원·은행·택배 등을 주장해요",
+                  href: "/emergency/impersonation",
+                  icon: "landmark",
+                },
+                {
+                  id: "device",
+                  title: "기기 점검이 필요",
+                  desc: "링크/앱 이후 휴대폰을 점검하고 싶어요",
+                  href: "/emergency/device-check",
+                  icon: "shield",
+                },
+              ]}
+            />
           </div>
 
           <div className="md:col-span-5">
