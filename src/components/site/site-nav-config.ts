@@ -20,7 +20,7 @@ export type NavGroup = {
 export const navGroups: NavGroup[] = [
   {
     id: "now",
-    label: "지금 대응",
+    label: "긴급대응",
     hint: "막혔을 때 순서대로 확인할 수 있는 바로 실행 메뉴입니다.",
     items: [
       {
@@ -47,7 +47,7 @@ export const navGroups: NavGroup[] = [
   },
   {
     id: "learn",
-    label: "알아보기",
+    label: "예방·이해",
     hint: "수법을 이해하고, 회복과 배경지식을 차례로 살펴봅니다.",
     items: [
       {
@@ -74,7 +74,7 @@ export const navGroups: NavGroup[] = [
   },
   {
     id: "support",
-    label: "도움·연결",
+    label: "신고·법률지원",
     hint: "공식 창구 연결과 법률·가족 지원 정보입니다.",
     items: [
       {
@@ -116,7 +116,7 @@ export const navGroups: NavGroup[] = [
   },
   {
     id: "tools",
-    label: "도구",
+    label: "점검도구",
     hint: "문자 점검과 사이트 안 검색을 한곳에 모았습니다.",
     items: [
       {
