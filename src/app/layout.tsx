@@ -20,7 +20,11 @@ const defaultTitle = `${SITE_BRAND} | ${SITE_TAGLINE_KO}`;
 const siteUrl = getSiteUrl();
 
 const ogDescription =
-  "보이스피싱·스미싱 의심 시 선제적 조치, 공공·금융기관 등 공식 신고·상담 절차 안내, 증거 자료 정리까지 단계별로 제공합니다. 정부·공공기관을 대리하지 않는 정보 서비스입니다.";
+  "보이스피싱 즉시 조치, 신고·법률 지원 채널 연계, 공공·금융기관 등 공식 신고·상담 절차 안내, 증거 자료 정리까지 단계별로 제공합니다. 정부·공공기관을 대리하지 않는 정보 서비스입니다.";
+
+/** `app/opengraph-image.png`는 og:url에 쿼리가 붙을 수 있어, 카카오 등 일부 스크래퍼 호환을 위해 `public/og.png`만 사용 */
+const ogImageAlt =
+  "VoiceGuard — 보이스피싱·스미싱이 의심될 때 지금 바로 확인하고 대응하는 안내 화면";
 
 export const metadata: Metadata = {
   title: {
@@ -39,11 +43,21 @@ export const metadata: Metadata = {
     title: defaultTitle,
     description: ogDescription,
     siteName: SITE_BRAND,
+    images: [
+      {
+        url: "/og.png",
+        width: 1024,
+        height: 665,
+        type: "image/png",
+        alt: ogImageAlt,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: defaultTitle,
     description: ogDescription,
+    images: ["/og.png"],
   },
 };
 
