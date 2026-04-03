@@ -2,25 +2,15 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Menu, Search, Shield, Siren, X } from "lucide-react";
+import { ChevronDown, Menu, Search, Shield, Siren, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { navGroups } from "@/components/site/site-nav-config";
 import { cn } from "@/lib/cn";
-
-const nav = [
-  { href: "/check", label: "1분 자가진단" },
-  { href: "/emergency", label: "긴급 대응" },
-  { href: "/scams", label: "유형 라이브러리" },
-  { href: "/recovery", label: "피해 회복" },
-  { href: "/evidence", label: "증거 정리" },
-  { href: "/alerts", label: "경보" },
-  { href: "/learn", label: "학습" },
-  { href: "/family", label: "가족/어르신" },
-  { href: "/help", label: "공식 도움" },
-];
 
 export function SiteHeader({ className }: { className?: string }) {
   const [open, setOpen] = useState(false);
+  const [mobileOpenGroup, setMobileOpenGroup] = useState<string | null>(navGroups[0]?.id ?? null);
 
   useEffect(() => {
     if (!open) return;
@@ -56,15 +46,53 @@ export function SiteHeader({ className }: { className?: string }) {
           </div>
         </Link>
 
-        <nav className="hidden items-center gap-0.5 lg:flex" aria-label="주요 메뉴">
-          {nav.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="rounded-xl px-3 py-2 text-[13px] font-medium text-muted-foreground transition hover:bg-muted hover:text-foreground"
-            >
-              {item.label}
-            </Link>
+        {/* 데스크톱: 대분류 + 호버 드롭다운 (한 줄, 줄바꿈 최소화) */}
+        <nav
+          className="hidden items-center gap-0 lg:flex"
+          aria-label="주요 메뉴"
+        >
+          {navGroups.map((group) => (
+            <div key={group.id} className="group/nav relative">
+              <button
+                type="button"
+                className="flex items-center gap-0.5 whitespace-nowrap rounded-xl px-2.5 py-2 text-[13px] font-semibold text-muted-foreground transition hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring/40"
+                aria-expanded="false"
+                aria-haspopup="true"
+              >
+                {group.label}
+                <ChevronDown className="h-3.5 w-3.5 opacity-70" aria-hidden />
+              </button>
+              <div
+                className={cn(
+                  "invisible absolute left-0 top-full z-[70] min-w-[260px] w-max max-w-[min(100vw-2rem,320px)]",
+                  "opacity-0 transition duration-150",
+                  "pointer-events-none",
+                  "group-hover/nav:visible group-hover/nav:opacity-100 group-hover/nav:pointer-events-auto",
+                  "focus-within:visible focus-within:opacity-100 focus-within:pointer-events-auto",
+                )}
+              >
+                <div
+                  className="overflow-hidden rounded-2xl border border-border/80 bg-surface py-2 shadow-xl shadow-brand/10 ring-1 ring-black/5"
+                  role="menu"
+                >
+                  {group.items.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className="block px-4 py-2.5 text-left transition hover:bg-muted/80"
+                      role="menuitem"
+                    >
+                      <div className="text-[13px] font-semibold text-foreground">{item.label}</div>
+                      {item.description ? (
+                        <div className="mt-0.5 text-[12px] leading-snug text-muted-foreground">
+                          {item.description}
+                        </div>
+                      ) : null}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
           ))}
         </nav>
 
@@ -100,43 +128,80 @@ export function SiteHeader({ className }: { className?: string }) {
       {open ? (
         <div
           id="mobile-nav"
-          className="fixed inset-0 z-[60] flex flex-col bg-surface lg:hidden"
+          className="fixed inset-0 z-[60] bg-black/35 lg:hidden"
           role="dialog"
           aria-modal="true"
           aria-label="모바일 메뉴"
+          onClick={() => setOpen(false)}
         >
-          <div className="flex items-center justify-between border-b border-border/70 px-4 py-3">
-            <span className="text-[15px] font-semibold">메뉴</span>
-            <button
-              type="button"
-              className="grid h-10 w-10 place-items-center rounded-xl hover:bg-muted"
-              onClick={() => setOpen(false)}
-              aria-label="닫기"
-            >
-              <X className="h-5 w-5" aria-hidden />
-            </button>
-          </div>
-          <nav className="flex-1 overflow-y-auto px-4 pb-8 pt-2">
-            <div className="mx-auto flex max-w-lg flex-col gap-1">
-              {nav.map((item) => (
+          <div
+            className="ml-auto flex h-full w-[min(92vw,420px)] flex-col bg-surface shadow-2xl shadow-black/20"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between border-b border-border/70 px-4 py-3">
+              <span className="text-[15px] font-semibold text-foreground">메뉴</span>
+              <button
+                type="button"
+                className="grid h-10 w-10 place-items-center rounded-xl hover:bg-muted"
+                onClick={() => setOpen(false)}
+                aria-label="닫기"
+              >
+                <X className="h-5 w-5" aria-hidden />
+              </button>
+            </div>
+            <nav className="flex-1 overflow-y-auto px-4 pb-8 pt-3" aria-label="모바일 주요 메뉴">
+              <div className="flex flex-col gap-2">
+                {navGroups.map((group) => {
+                  const expanded = mobileOpenGroup === group.id;
+                  return (
+                    <div key={group.id} className="rounded-2xl border border-border/70 bg-background">
+                      <button
+                        type="button"
+                        className="flex w-full items-center justify-between gap-2 px-4 py-3.5 text-left text-[16px] font-semibold text-foreground"
+                        aria-expanded={expanded}
+                        onClick={() => setMobileOpenGroup(expanded ? null : group.id)}
+                      >
+                        {group.label}
+                        <ChevronDown
+                          className={cn(
+                            "h-5 w-5 shrink-0 transition",
+                            expanded ? "rotate-180" : "",
+                          )}
+                          aria-hidden
+                        />
+                      </button>
+                      {expanded ? (
+                        <div className="border-t border-border/60 px-2 pb-2">
+                          {group.items.map((item) => (
+                            <Link
+                              key={item.href}
+                              href={item.href}
+                              className="block rounded-xl px-3 py-3 text-[15px] transition hover:bg-muted"
+                              onClick={() => setOpen(false)}
+                            >
+                              <div className="font-semibold">{item.label}</div>
+                              {item.description ? (
+                                <div className="mt-0.5 text-[13px] font-normal text-muted-foreground">
+                                  {item.description}
+                                </div>
+                              ) : null}
+                            </Link>
+                          ))}
+                        </div>
+                      ) : null}
+                    </div>
+                  );
+                })}
                 <Link
-                  key={item.href}
-                  href={item.href}
-                  className="rounded-2xl px-4 py-3.5 text-[16px] font-semibold text-foreground transition hover:bg-muted active:bg-muted"
+                  href="/search"
+                  className="rounded-2xl px-4 py-3.5 text-[16px] font-semibold text-muted-foreground transition hover:bg-muted hover:text-foreground"
                   onClick={() => setOpen(false)}
                 >
-                  {item.label}
+                  검색
                 </Link>
-              ))}
-              <Link
-                href="/search"
-                className="rounded-2xl px-4 py-3.5 text-[16px] font-semibold text-muted-foreground transition hover:bg-muted hover:text-foreground"
-                onClick={() => setOpen(false)}
-              >
-                검색
-              </Link>
-            </div>
-          </nav>
+              </div>
+            </nav>
+          </div>
         </div>
       ) : null}
     </header>

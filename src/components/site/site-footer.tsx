@@ -9,6 +9,13 @@ const quick = [
   { href: "/evidence", label: "증거" },
   { href: "/family", label: "가족" },
   { href: "/help", label: "도움" },
+  { href: "/guide", label: "상황별 가이드" },
+  { href: "/help/contacts", label: "공식 연락처" },
+  { href: "/help/institutions", label: "전문기관·법률참고" },
+  { href: "/emergency/app-installed", label: "악성앱 대응" },
+  { href: "/identity", label: "명의·2차 피해" },
+  { href: "/legal", label: "법률 도움" },
+  { href: "/tools/suspicious-text", label: "문자 의심 체크" },
 ];
 
 export function SiteFooter() {

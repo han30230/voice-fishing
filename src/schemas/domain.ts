@@ -19,6 +19,12 @@ export const FAQItemSchema = z.object({
 });
 export type FAQItem = z.infer<typeof FAQItemSchema>;
 
+export const DialogueLineSchema = z.object({
+  speaker: z.string(),
+  line: z.string(),
+});
+export type DialogueLine = z.infer<typeof DialogueLineSchema>;
+
 export const ScamScenarioSchema = z.object({
   slug: z.string(),
   title: z.string(),
@@ -27,6 +33,12 @@ export const ScamScenarioSchema = z.object({
   riskLevel: RiskLevelSchema,
   impersonatedEntity: z.string().optional(),
   commonScripts: z.array(z.string()).default([]),
+  /** 대화 예시(시나리오) — 범인이 흔히 쓰는 말투 */
+  dialogueExamples: z.array(DialogueLineSchema).default([]),
+  /** 왜 속기 쉬운지 */
+  whyBelievable: z.string().optional(),
+  /** 진짜 기관이면 보통 다른 점 */
+  authenticDifference: z.string().optional(),
   commonChannels: z.array(z.string()).default([]),
   commonPsychology: z.array(z.string()).default([]),
   dangerSigns: z.array(z.string()).default([]),
@@ -121,6 +133,10 @@ export type BankTransfer = z.infer<typeof BankTransferSchema>;
 
 export const EvidenceDraftSchema = z.object({
   incidentTitle: z.string().default(""),
+  /** 사건 발생(추정) 시각 — 요약·시간순 정리에 사용 */
+  incidentOccurredAt: z.string().default(""),
+  /** 상대가 주장한 기관/단체명 */
+  claimedOrganization: z.string().default(""),
   createdAt: z.string(),
   updatedAt: z.string(),
   victimType: z.enum(["self", "parent", "other"]).default("self"),
@@ -131,9 +147,81 @@ export const EvidenceDraftSchema = z.object({
   installedApps: z.array(z.string()).default([]),
   timelineEntries: z.array(TimelineEntrySchema).default([]),
   notes: z.string().default(""),
+  policeReported: z.boolean().default(false),
+  bankReported: z.boolean().default(false),
+  hasCallRecording: z.boolean().default(false),
+  hasMessageCapture: z.boolean().default(false),
+  hasScreenCapture: z.boolean().default(false),
   exportedSummary: z.string().optional(),
 });
 export type EvidenceDraft = z.infer<typeof EvidenceDraftSchema>;
+
+export const OfficialContactEntrySchema = z.object({
+  id: z.string(),
+  category: z.string(),
+  organization: z.string(),
+  label: z.string(),
+  /** 국번만·하이픈 없이도 가능. 미검증이면 비우고 link 안내 */
+  phone: z.string().optional(),
+  link: z.string().optional(),
+  hours: z.string().optional(),
+  description: z.string(),
+  verifiedAt: z.string(),
+  cautionNote: z.string().optional(),
+});
+export type OfficialContactEntry = z.infer<typeof OfficialContactEntrySchema>;
+
+export const OfficialContactGroupSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  description: z.string().optional(),
+  sourceNote: z.string().optional(),
+  entries: z.array(OfficialContactEntrySchema),
+});
+export type OfficialContactGroup = z.infer<typeof OfficialContactGroupSchema>;
+
+export const SuspiciousTextRuleSchema = z.object({
+  id: z.string(),
+  label: z.string(),
+  /** 정규식 소스 문자열 — 클라이언트에서 RegExp로 컴파일 */
+  patternSources: z.array(z.string()),
+  advice: z.string(),
+  /** 왜 의심되는지 한 줄 */
+  why: z.string().optional(),
+});
+export type SuspiciousTextRule = z.infer<typeof SuspiciousTextRuleSchema>;
+
+export const SeoIntentPageSchema = z.object({
+  slug: z.string(),
+  title: z.string(),
+  seoTitle: z.string(),
+  seoDescription: z.string(),
+  h1: z.string(),
+  lead: z.string(),
+  sections: z.array(
+    z.object({
+      heading: z.string(),
+      body: z.array(z.string()),
+    }),
+  ),
+  faq: z.array(FAQItemSchema).default([]),
+  relatedSlugs: z.array(z.string()).default([]),
+  verifiedAt: z.string(),
+});
+export type SeoIntentPage = z.infer<typeof SeoIntentPageSchema>;
+
+export const IdentityProtectionItemSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  whyNow: z.string(),
+  whatYouNeed: z.string(),
+  whereToGo: z.string(),
+  outboundUrl: z.string(),
+  outboundLabel: z.string(),
+  verifiedAt: z.string(),
+  caution: z.string().optional(),
+});
+export type IdentityProtectionItem = z.infer<typeof IdentityProtectionItemSchema>;
 
 export const SelfCheckQuestionSchema = z.object({
   id: z.string(),

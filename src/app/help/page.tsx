@@ -1,6 +1,9 @@
+import Link from "next/link";
+
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { SiteShell } from "@/components/site/site-shell";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { helpResources } from "@/data/help";
 
 export const metadata = {
@@ -28,7 +31,54 @@ export default function HelpHubPage() {
         </p>
       </div>
 
-      <div className="mt-6 grid gap-4">
+      <div className="mt-6 grid gap-3 md:grid-cols-3">
+        <Card className="border-brand/20">
+          <CardHeader>
+            <CardTitle className="text-[16px]">공식 연락처 허브</CardTitle>
+            <CardDescription>번호 복사·공식 링크·확인일</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Button asChild variant="primary" className="w-full rounded-xl">
+              <Link href="/help/contacts">이동</Link>
+            </Button>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-[16px]">법률 도움(공공)</CardTitle>
+            <CardDescription>진술·제출 자료 체크리스트</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Button asChild variant="outline" className="w-full rounded-xl">
+              <Link href="/legal">이동</Link>
+            </Button>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-[16px]">명의·2차 피해</CardTitle>
+            <CardDescription>개통·금융 점검 출발점</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Button asChild variant="outline" className="w-full rounded-xl">
+              <Link href="/identity">이동</Link>
+            </Button>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-[16px]">전문 기관·법률 참고</CardTitle>
+            <CardDescription>KISA·공공 채널, 변호사 선택 시 체크리스트(추천·평점 없음)</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Button asChild variant="outline" className="w-full rounded-xl">
+              <Link href="/help/institutions">이동</Link>
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="mt-8 grid gap-4">
         {helpResources.map((r) => (
           <Card key={r.id}>
             <CardHeader>

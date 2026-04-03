@@ -9,6 +9,7 @@ import {
   Users,
 } from "lucide-react";
 
+import { EmergencyQuickStrip } from "@/components/home/emergency-quick-strip";
 import { SiteShell } from "@/components/site/site-shell";
 import { HomeQuickTiles } from "@/components/home/home-quick-tiles";
 import { Button } from "@/components/ui/button";
@@ -23,7 +24,9 @@ import {
 export default function Home() {
   return (
     <SiteShell>
-        <section className="relative overflow-hidden rounded-[2rem] border border-border/70 bg-surface/90 p-6 shadow-[0_20px_60px_-24px_rgb(15_61_122/0.35)] ring-1 ring-white/60 md:p-10">
+        <EmergencyQuickStrip />
+
+        <section className="relative mt-4 overflow-hidden rounded-[2rem] border border-border/70 bg-surface/90 p-6 shadow-[0_20px_60px_-24px_rgb(15_61_122/0.35)] ring-1 ring-white/60 md:mt-6 md:p-10">
           <div
             aria-hidden
             className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[radial-gradient(circle_at_center,rgb(15_61_122/0.14),transparent_65%)]"

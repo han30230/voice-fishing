@@ -8,12 +8,48 @@ export function buildConciseSummary(d: EvidenceDraft) {
   const title = d.incidentTitle?.trim() || "(사건 제목 미입력)";
   return lines([
     `[요약] ${title}`,
+    d.incidentOccurredAt?.trim() ? `- 사건 발생(추정) 시각: ${d.incidentOccurredAt.trim()}` : "",
+    d.claimedOrganization?.trim() ? `- 상대 주장 기관/단체: ${d.claimedOrganization.trim()}` : "",
     d.contactPhoneNumbers.length ? `- 연락/발신 번호: ${d.contactPhoneNumbers.join(", ")}` : "",
     d.suspiciousLinks.length ? `- 의심 링크: ${d.suspiciousLinks.join(" | ")}` : "",
     d.bankTransfers.length ? `- 송금/이체 기록: ${d.bankTransfers.length}건` : "",
     d.installedApps.length ? `- 설치 앱: ${d.installedApps.join(", ")}` : "",
     d.timelineEntries.length ? `- 타임라인: ${d.timelineEntries.length}건` : "",
+    `- 경찰 신고: ${d.policeReported ? "예(체크)" : "미체크/미입력"}`,
+    `- 은행·카드사 문의·신고: ${d.bankReported ? "예(체크)" : "미체크/미입력"}`,
+    `- 통화 녹취·녹음: ${d.hasCallRecording ? "있음(체크)" : "미체크"}`,
+    `- 문자·메시지 캡처: ${d.hasMessageCapture ? "있음(체크)" : "미체크"}`,
+    `- 화면 캡처/스크린샷: ${d.hasScreenCapture ? "있음(체크)" : "미체크"}`,
     d.notes.trim() ? `- 메모: ${d.notes.trim()}` : "",
+  ]);
+}
+
+/** 시간 문자열 기준으로 타임라인·이체·사건시각을 한 데 모은 시간순 초안 */
+export function buildChronologicalSummary(d: EvidenceDraft) {
+  const rows: { sort: string; line: string }[] = [];
+  if (d.incidentOccurredAt?.trim()) {
+    rows.push({
+      sort: d.incidentOccurredAt.trim(),
+      line: `[사건 발생(추정)] ${d.incidentOccurredAt.trim()} — ${d.claimedOrganization?.trim() || "기관명 미입력"}`,
+    });
+  }
+  for (const e of d.timelineEntries) {
+    rows.push({
+      sort: e.timestamp,
+      line: `[${e.timestamp}] (${e.type}) ${e.actor ? `${e.actor} / ` : ""}${e.description}`,
+    });
+  }
+  for (const t of d.bankTransfers) {
+    const ts = t.timestamp?.trim() || "";
+    rows.push({
+      sort: ts || "9999-99-99",
+      line: `[이체] ${ts || "시각미상"} / ${t.amount ?? ""} / ${t.bankName ?? ""} / ${t.recipientName ?? ""}`,
+    });
+  }
+  rows.sort((a, b) => a.sort.localeCompare(b.sort));
+  return lines([
+    `[시간순 정리 초안] ${d.incidentTitle || ""}`.trim(),
+    ...rows.map((r) => r.line),
   ]);
 }
 
@@ -30,9 +66,13 @@ export function buildReportSummary(d: EvidenceDraft) {
     `[경찰 신고용 초안]`,
     `사건명: ${d.incidentTitle || "(미입력)"}`,
     `피해자 유형: ${d.victimType}`,
+    `상대 주장 기관/단체: ${d.claimedOrganization?.trim() || "(미입력)"}`,
     "",
     `1) 경위(간단)`,
     buildConciseSummary(d),
+    "",
+    `1-1) 시간순 정리`,
+    buildChronologicalSummary(d),
     "",
     `2) 타임라인`,
     buildTimelineText(d),

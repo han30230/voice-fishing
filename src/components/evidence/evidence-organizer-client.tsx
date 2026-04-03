@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import {
   buildBankSummary,
+  buildChronologicalSummary,
   buildConciseSummary,
   buildFamilySummary,
   buildLawyerSummary,
@@ -20,14 +21,15 @@ import { useEvidenceDraft } from "@/hooks/use-evidence-draft";
 import { trackEvent } from "@/lib/analytics";
 import type { TimelineEntry } from "@/schemas/domain";
 
-type StepKey = "basics" | "contacts" | "content" | "money" | "timeline" | "export";
+type StepKey = "basics" | "contacts" | "content" | "money" | "timeline" | "details" | "export";
 
 const STEPS: { key: StepKey; title: string; desc: string }[] = [
-  { key: "basics", title: "기본 정보", desc: "사건 제목과 피해자 유형" },
+  { key: "basics", title: "기본 정보", desc: "사건 제목·시각·피해자 유형" },
   { key: "contacts", title: "번호/링크", desc: "발신번호·URL 등" },
   { key: "content", title: "문자/메모", desc: "메시지 원문과 추가 메모" },
   { key: "money", title: "송금/앱", desc: "이체 내역과 설치 앱" },
   { key: "timeline", title: "타임라인", desc: "시간순으로 사실을 쌓기" },
+  { key: "details", title: "신고·증거", desc: "신고 여부·캡처 여부(체크)" },
   { key: "export", title: "보내기", desc: "복사/인쇄용 요약" },
 ];
 
@@ -110,6 +112,7 @@ export function EvidenceOrganizerClient() {
   const summaries = useMemo(() => {
     return {
       concise: buildConciseSummary(draft),
+      chronological: buildChronologicalSummary(draft),
       timeline: buildTimelineText(draft),
       police: buildReportSummary(draft),
       bank: buildBankSummary(draft),
@@ -120,10 +123,10 @@ export function EvidenceOrganizerClient() {
 
   const s = STEPS[step]!;
 
-  async function copyText(text: string) {
+  async function copyText(text: string, format: "copy" | "timeline_copy" = "copy") {
     try {
       await navigator.clipboard.writeText(text);
-      trackEvent("evidence.export", { format: "copy" });
+      trackEvent("evidence.export", { format: format === "timeline_copy" ? "timeline_copy" : "copy" });
     } catch {
       // ignore
     }
@@ -208,6 +211,26 @@ export function EvidenceOrganizerClient() {
                   value={draft.incidentTitle}
                   onChange={(e) => setDraft((prev) => ({ ...prev, incidentTitle: e.target.value }))}
                   placeholder="예: 4/2 오후, ‘검찰’ 사칭 전화 + 앱 설치 유도"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="occurred">사건 발생(추정) 시각</Label>
+                <Input
+                  id="occurred"
+                  value={draft.incidentOccurredAt}
+                  onChange={(e) => setDraft((prev) => ({ ...prev, incidentOccurredAt: e.target.value }))}
+                  placeholder="예: 2026-04-02 14:30"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="claimed">발신자가 주장한 기관·단체</Label>
+                <Input
+                  id="claimed"
+                  value={draft.claimedOrganization}
+                  onChange={(e) => setDraft((prev) => ({ ...prev, claimedOrganization: e.target.value }))}
+                  placeholder="예: OO은행, 검찰 OO, 택배사명"
                 />
               </div>
 
@@ -431,10 +454,61 @@ export function EvidenceOrganizerClient() {
               entries={draft.timelineEntries}
               onChange={(next) => setDraft((prev) => ({ ...prev, timelineEntries: next }))}
             />
+          ) : s.key === "details" ? (
+            <div className="space-y-4">
+              <p className="text-[13px] text-muted-foreground">
+                체크만으로도 나중에 요약에 반영됩니다. 법적 효력을 주장하지 않습니다.
+              </p>
+              {(
+                [
+                  ["policeReported", "경찰에 신고했거나 신고 예정"],
+                  ["bankReported", "은행·카드사에 문의/신고했거나 예정"],
+                  ["hasCallRecording", "통화 녹취·녹음이 있다(있으면 체크)"],
+                  ["hasMessageCapture", "문자·메신저 캡처가 있다"],
+                  ["hasScreenCapture", "화면 캡처·스크린샷이 있다"],
+                ] as const
+              ).map(([key, label]) => {
+                const checked =
+                  key === "policeReported"
+                    ? draft.policeReported
+                    : key === "bankReported"
+                      ? draft.bankReported
+                      : key === "hasCallRecording"
+                        ? draft.hasCallRecording
+                        : key === "hasMessageCapture"
+                          ? draft.hasMessageCapture
+                          : draft.hasScreenCapture;
+                return (
+                <label
+                  key={key}
+                  className="flex cursor-pointer items-start gap-3 rounded-2xl border border-border bg-surface p-4 text-[14px]"
+                >
+                  <input
+                    type="checkbox"
+                    className="mt-1 h-4 w-4 rounded border-border"
+                    checked={checked}
+                    onChange={(e) =>
+                      setDraft((prev) => ({
+                        ...prev,
+                        [key]: e.target.checked,
+                      }))
+                    }
+                  />
+                  <span>{label}</span>
+                </label>
+              );
+              })}
+            </div>
           ) : (
             <div className="space-y-4">
               <div className="grid gap-2 lg:grid-cols-2">
                 <ExportBlock title="간단 요약" text={summaries.concise} onCopy={() => copyText(summaries.concise)} onPrint={() => printText("간단 요약", summaries.concise)} />
+                <ExportBlock
+                  title="시간순 요약"
+                  text={summaries.chronological}
+                  onCopy={() => copyText(summaries.chronological, "timeline_copy")}
+                  onPrint={() => printText("시간순 요약", summaries.chronological)}
+                />
                 <ExportBlock title="타임라인" text={summaries.timeline} onCopy={() => copyText(summaries.timeline)} onPrint={() => printText("타임라인", summaries.timeline)} />
                 <ExportBlock title="경찰 신고용 초안" text={summaries.police} onCopy={() => copyText(summaries.police)} onPrint={() => printText("경찰 신고용 초안", summaries.police)} />
                 <ExportBlock title="은행 상담용 초안" text={summaries.bank} onCopy={() => copyText(summaries.bank)} onPrint={() => printText("은행 상담용 초안", summaries.bank)} />

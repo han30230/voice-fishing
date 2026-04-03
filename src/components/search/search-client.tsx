@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { alerts } from "@/data/alerts";
 import { learningArticles } from "@/data/learn";
 import { recoveryGuides } from "@/data/recovery";
+import { seoIntentPages } from "@/data/seo-intent-pages";
 import { scenarios } from "@/data/scenarios";
 import { trackEvent } from "@/lib/analytics";
 
@@ -57,6 +58,27 @@ export function SearchClient() {
         href: "/tools/script-detector",
         snippet: "문구를 붙여넣어 위험 패턴을 빠르게 확인",
       },
+      {
+        kind: "도구",
+        title: "문자·카톡 의심 신호 체크",
+        href: "/tools/suspicious-text",
+        snippet: "규칙 기반 의심 신호(참고용)",
+      },
+      ...seoIntentPages.map((p) => ({
+        kind: "상황별 가이드",
+        title: p.title,
+        href: `/guide/${p.slug}`,
+        snippet: p.lead,
+      })),
+      { kind: "도움", title: "공식 연락처 허브", href: "/help/contacts", snippet: "번호 복사·공식 링크" },
+      {
+        kind: "도움",
+        title: "전문 기관·법률 참고",
+        href: "/help/institutions",
+        snippet: "공공 출발점·변호사 선택 체크(추천 없음)",
+      },
+      { kind: "도움", title: "명의·2차 피해 예방", href: "/identity", snippet: "개통·명의 관련 점검" },
+      { kind: "도움", title: "법률 도움(공공)", href: "/legal", snippet: "진술·자료 체크리스트" },
     ];
   }, []);
 
@@ -89,7 +111,7 @@ export function SearchClient() {
           }}
         />
         <div className="text-[12px] text-muted-foreground">
-          내부 콘텐츠(유형/회복/학습/경보)를 빠르게 찾습니다.
+          내부 콘텐츠(유형/회복/학습/경보/상황별 가이드)를 빠르게 찾습니다.
         </div>
       </div>
 

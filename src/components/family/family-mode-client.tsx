@@ -31,6 +31,10 @@ export function FamilyModeClient() {
   }, [simpleUi]);
 
   useEffect(() => {
+    trackEvent("family.mode_enter", { path: typeof window !== "undefined" ? window.location.pathname : "" });
+  }, []);
+
+  useEffect(() => {
     trackEvent("family.mode_toggle", { elderLargeText: largeText, simpleUi });
   }, [largeText, simpleUi]);
 
@@ -44,8 +48,54 @@ export function FamilyModeClient() {
     [],
   );
 
+  const shareScript = [
+    "지금 통화는 잠깐 끊어요. 돈·비밀번호·앱 설치는 하지 않아요.",
+    "제가 직접 은행 앱에서 확인할게요. 낯선 링크는 안 눌러요.",
+  ];
+
   return (
     <div className="space-y-4">
+      <Card className="border-brand/20 bg-brand-muted/30">
+        <CardHeader>
+          <CardTitle className="text-[18px]">부모님에게 바로 보여주기</CardTitle>
+          <CardDescription className="text-[15px]">
+            한 화면에 필요한 말만 모았습니다. 옆에서 같이 읽어드려도 됩니다.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          <Button asChild variant="danger" className="h-14 w-full rounded-3xl text-[17px]">
+            <Link href="/emergency">지금 긴급 상황부터 보기</Link>
+          </Button>
+          <Button asChild variant="primary" className="h-14 w-full rounded-3xl text-[17px]">
+            <Link href="/guide/parent-voice-phishing">부모님 대응법(읽어드릴 대본)</Link>
+          </Button>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>가족이 대신 읽어드릴 대본</CardTitle>
+          <CardDescription>짧게, 차분하게</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-3 text-[17px] leading-8 text-foreground">
+          {shareScript.map((line) => (
+            <p key={line} className="rounded-2xl border border-border bg-surface p-4">
+              {line}
+            </p>
+          ))}
+          <Button
+            type="button"
+            variant="outline"
+            className="w-full rounded-2xl text-[16px]"
+            onClick={() => {
+              void navigator.clipboard.writeText(shareScript.join("\n"));
+            }}
+          >
+            대본 복사하기(카톡·문자에 붙여넣기)
+          </Button>
+        </CardContent>
+      </Card>
+
       <Card>
         <CardHeader>
           <CardTitle>표시 설정</CardTitle>

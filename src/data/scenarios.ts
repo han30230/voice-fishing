@@ -1,6 +1,6 @@
-import type { ScamScenario } from "@/schemas/domain";
+import { ScamScenarioSchema, type ScamScenario } from "@/schemas/domain";
 
-export const scenarios: ScamScenario[] = [
+const rawScenarios = [
   {
     slug: "prosecutor-police-impersonation",
     title: "검찰·경찰 사칭 보이스피싱",
@@ -14,6 +14,14 @@ export const scenarios: ScamScenario[] = [
       "안전계좌로 이체해야 자금이 보호됩니다.",
       "가족에게 말하면 방해가 됩니다. 비밀로 하세요.",
     ],
+    dialogueExamples: [
+      { speaker: "사기범(가장)", line: "본인 계좌가 범죄 자금으로 쓰였습니다. 지금 수사관이 연결됩니다." },
+      { speaker: "사기범(가장)", line: "안전계좌로 옮기지 않으면 전액 몰수됩니다. 지금 당장 처리하세요." },
+    ],
+    whyBelievable:
+      "‘수사’라는 말과 시간 압박이 겹치면 판단이 흐려지기 쉽습니다. 실제로는 이런 방식으로 민감정보를 요구하지 않습니다.",
+    authenticDifference:
+      "수사기관은 통화만으로 계좌 이체·OTP·원격제어를 요구하지 않습니다. 공식 대표번호로 본인이 다시 연락해 확인하는 절차가 일반적입니다.",
     commonChannels: ["call", "SMS", "KakaoTalk"],
     commonPsychology: ["권위", "긴급성", "고립(비밀 유지)", "두려움"],
     dangerSigns: [
@@ -486,6 +494,8 @@ export const scenarios: ScamScenario[] = [
     seoDescription: "딥페이크 시대의 안전한 확인 절차.",
     updatedAt: "2026-04-02",
   },
-];
+] as const;
+
+export const scenarios: ScamScenario[] = rawScenarios.map((s) => ScamScenarioSchema.parse(s));
 
 export const scenarioBySlug = new Map(scenarios.map((s) => [s.slug, s]));

@@ -152,6 +152,49 @@ export default async function ScamScenarioPage({ params }: Props) {
         </Card>
       </div>
 
+      {s.dialogueExamples.length > 0 || s.whyBelievable || s.authenticDifference ? (
+        <div className="mt-6 grid gap-4 md:grid-cols-2">
+          {s.dialogueExamples.length > 0 ? (
+            <Card>
+              <CardHeader>
+                <CardTitle>대화 예시(시나리오)</CardTitle>
+                <CardDescription>범인이 흔히 쓰는 말투 — 실제 사건과 다를 수 있습니다</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-3 text-[14px] leading-6">
+                {s.dialogueExamples.map((d, i) => (
+                  <div key={`${d.speaker}-${i}`} className="rounded-2xl border border-border bg-surface p-3">
+                    <div className="text-[12px] font-semibold text-brand">{d.speaker}</div>
+                    <div className="mt-1 text-muted-foreground">“{d.line}”</div>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+          ) : null}
+          {s.whyBelievable || s.authenticDifference ? (
+            <Card>
+              <CardHeader>
+                <CardTitle>왜 속기 쉽고, 진짜는 어떻게 다른가요</CardTitle>
+                <CardDescription>단정이 아니라 참고용 설명입니다</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-3 text-[14px] leading-7 text-muted-foreground">
+                {s.whyBelievable ? (
+                  <p>
+                    <b className="text-foreground">왜 속기 쉬운지: </b>
+                    {s.whyBelievable}
+                  </p>
+                ) : null}
+                {s.authenticDifference ? (
+                  <p>
+                    <b className="text-foreground">진짜 기관이면 보통 다른 점: </b>
+                    {s.authenticDifference}
+                  </p>
+                ) : null}
+              </CardContent>
+            </Card>
+          ) : null}
+        </div>
+      ) : null}
+
       <div className="mt-6 grid gap-4 md:grid-cols-2">
         <Card>
           <CardHeader>

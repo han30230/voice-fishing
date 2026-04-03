@@ -1,8 +1,6 @@
-import Link from "next/link";
-
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
+import { ScamsLibraryClient } from "@/components/scams/scams-library-client";
 import { SiteShell } from "@/components/site/site-shell";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { scenarios } from "@/data/scenarios";
 
 export const metadata = {
@@ -12,12 +10,6 @@ export const metadata = {
 };
 
 export default function ScamsIndexPage() {
-  const grouped = scenarios.reduce<Record<string, typeof scenarios>>((acc, s) => {
-    acc[s.category] ??= [];
-    acc[s.category]!.push(s);
-    return acc;
-  }, {});
-
   return (
     <SiteShell>
       <Breadcrumbs
@@ -37,30 +29,8 @@ export default function ScamsIndexPage() {
         </p>
       </div>
 
-      <div className="mt-8 space-y-10">
-        {Object.entries(grouped).map(([category, items]) => (
-          <section key={category}>
-            <h2 className="text-[16px] font-semibold">{category}</h2>
-            <div className="mt-3 grid gap-3 md:grid-cols-2">
-              {items.map((s) => (
-                <Card key={s.slug} className="hover:border-ring/60">
-                  <CardHeader>
-                    <CardTitle className="text-[16px]">{s.title}</CardTitle>
-                    <CardDescription>{s.shortSummary}</CardDescription>
-                  </CardHeader>
-                  <CardContent className="pt-0">
-                    <Link
-                      className="text-[14px] font-semibold text-brand hover:underline"
-                      href={`/scams/${s.slug}`}
-                    >
-                      상세 보기
-                    </Link>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </section>
-        ))}
+      <div className="mt-8">
+        <ScamsLibraryClient scenarios={scenarios} />
       </div>
     </SiteShell>
   );

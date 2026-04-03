@@ -16,6 +16,8 @@ export function emptyDraft(): EvidenceDraft {
   const t = nowIso();
   return EvidenceDraftSchema.parse({
     incidentTitle: "",
+    incidentOccurredAt: "",
+    claimedOrganization: "",
     createdAt: t,
     updatedAt: t,
     victimType: "self",
@@ -26,6 +28,11 @@ export function emptyDraft(): EvidenceDraft {
     installedApps: [],
     timelineEntries: [],
     notes: "",
+    policeReported: false,
+    bankReported: false,
+    hasCallRecording: false,
+    hasMessageCapture: false,
+    hasScreenCapture: false,
   });
 }
 

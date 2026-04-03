@@ -1,51 +1,12 @@
-import { EmergencyPage } from "@/components/emergency/emergency-page";
+import { MaliciousAppEmergencyPage } from "@/components/emergency/malicious-app-checklist";
 
 export const metadata = {
-  title: "앱 설치/원격제어 대응",
-  description: "보안앱/원격제어 앱을 설치했을 때 즉시 해야 할 조치와 증거 정리.",
+  title: "악성앱·원격제어 설치 대응",
+  description:
+    "의심 앱 설치 직후 1분 행동, 오늘 할 일, 금지 사항, 다른 기기에서 할 일을 체크리스트로 안내합니다.",
+  alternates: { canonical: "/emergency/app-installed" },
 };
 
 export default function EmergencyAppInstalledPage() {
-  return (
-    <EmergencyPage
-      title="앱을 설치했어요(원격제어/악성앱 의심)"
-      subtitle="앱 설치 + 권한 허용(접근성/기기 관리자/알림 접근/화면 캡처/통화 권한 등)은 피해가 빠르게 커질 수 있습니다. 지금은 ‘연결을 끊고, 권한을 회수하고, 계정을 보호’하는 것이 우선입니다."
-      next5Min={[
-        "Wi‑Fi/모바일 데이터를 잠시 꺼서 외부 연결을 줄이세요(가능하면 비행기 모드).",
-        "원격제어/화면공유가 켜져 있다면 즉시 종료하세요.",
-        "최근 설치한 의심 앱을 삭제하세요(삭제가 안 되면 권한을 먼저 해제).",
-        "설정에서 접근성/기기관리자/알림 접근 권한을 확인해 의심 앱 권한을 해제하세요.",
-        "금융/이메일/메신저 비밀번호를 ‘다른 기기’에서 변경하고, 로그인 세션을 종료하세요.",
-      ]}
-      neverDo={[
-        "사기꾼이 안내하는 ‘보안점검’ 앱을 추가로 설치하지 마세요.",
-        "전화로 안내받으며 금융 앱을 실행하거나 인증을 진행하지 마세요.",
-        "삭제가 안 된다고 해서 계속 두지 마세요(권한 해제 → 삭제 순서로 진행).",
-      ]}
-      whoToContact={[
-        {
-          title: "은행/카드사",
-          details:
-            "이체/결제 위험이 있으므로 즉시 고객센터(공식 번호)로 연락해 이상거래 모니터링, 이체 제한, 재발급을 문의하세요.",
-        },
-        {
-          title: "가족/지인",
-          details:
-            "혼자 처리하기 어려우면 지금 상태(설치 앱 이름, 권한, 송금 여부)를 공유하고 함께 점검하세요.",
-        },
-      ]}
-      evidence={[
-        "설치된 앱 이름/아이콘/설치 시간(앱 정보 화면) 캡처.",
-        "권한 화면(접근성, 기기 관리자, 알림 접근 등) 캡처.",
-        "통화기록/문자/링크 원문.",
-        "송금/결제 내역(있다면).",
-      ]}
-      extraChecks={[
-        "금융 앱 알림/문자 인증이 온 적이 있는지 확인.",
-        "기기에서 ‘알 수 없는 출처 설치’ 설정이 켜져 있으면 끄기.",
-        "가능하면 기기 보안 점검(공식 백신/OS 업데이트) 진행.",
-      ]}
-    />
-  );
+  return <MaliciousAppEmergencyPage />;
 }
-

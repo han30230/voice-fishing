@@ -3,6 +3,7 @@ import type { MetadataRoute } from "next";
 import { alerts } from "@/data/alerts";
 import { learningArticles } from "@/data/learn";
 import { recoveryGuides } from "@/data/recovery";
+import { seoIntentPages } from "@/data/seo-intent-pages";
 import { scenarios } from "@/data/scenarios";
 import { getSiteUrl } from "@/lib/site";
 
@@ -25,10 +26,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/evidence",
     "/family",
     "/help",
+    "/help/contacts",
+    "/help/institutions",
+    "/identity",
+    "/legal",
+    "/guide",
     "/alerts",
     "/learn",
     "/search",
     "/tools/script-detector",
+    "/tools/suspicious-text",
+    "/emergency/malicious-app",
   ];
 
   const entries: MetadataRoute.Sitemap = [
@@ -61,6 +69,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(a.updatedAt),
       changeFrequency: "monthly" as const,
       priority: 0.55,
+    })),
+    ...seoIntentPages.map((p) => ({
+      url: `${base}/guide/${p.slug}`,
+      lastModified: new Date(p.verifiedAt),
+      changeFrequency: "monthly" as const,
+      priority: 0.62,
     })),
   ];
 
