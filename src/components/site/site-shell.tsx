@@ -10,9 +10,9 @@ export function SiteShell({
   children: ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <SiteHeader />
-      <main className="mx-auto w-full max-w-6xl px-4 pb-24 pt-6 md:pb-12 md:pt-10">
+      <main className="mx-auto w-full max-w-6xl px-4 pb-28 pt-8 md:pb-16 md:pt-12">
         {children}
       </main>
       <SiteFooter />

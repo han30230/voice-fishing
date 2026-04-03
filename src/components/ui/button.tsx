@@ -8,14 +8,14 @@ type ButtonSize = "sm" | "md" | "lg";
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    "bg-brand text-white shadow-sm hover:bg-brand/90 focus-visible:ring-brand/35",
+    "bg-brand text-white shadow-md shadow-brand/25 ring-1 ring-white/10 hover:brightness-110 focus-visible:ring-brand/35",
   secondary:
-    "bg-muted text-foreground hover:bg-muted/80 focus-visible:ring-ring/40",
+    "bg-muted text-foreground hover:bg-muted/85 focus-visible:ring-ring/40",
   outline:
-    "border border-border bg-background hover:bg-muted/60 focus-visible:ring-ring/40",
-  ghost: "hover:bg-muted/60 focus-visible:ring-ring/40",
+    "border border-border/90 bg-surface/80 shadow-sm hover:bg-muted hover:border-border focus-visible:ring-ring/40",
+  ghost: "hover:bg-muted/70 focus-visible:ring-ring/40",
   danger:
-    "bg-danger text-white shadow-sm hover:bg-danger/90 focus-visible:ring-danger/35",
+    "bg-danger text-white shadow-md shadow-danger/20 ring-1 ring-white/10 hover:brightness-110 focus-visible:ring-danger/35",
 };
 
 const sizeClasses: Record<ButtonSize, string> = {
@@ -49,9 +49,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         type={type ?? (asChild ? undefined : "button")}
         className={cn(
-          "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl font-medium transition-colors",
+          "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl font-semibold transition-all duration-200",
           "focus-visible:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50",
-          "active:translate-y-[0.5px]",
+          "active:translate-y-[0.5px] active:brightness-95",
           sizeClasses[size],
           variantClasses[variant],
           className,

@@ -13,7 +13,8 @@ npm run dev
 
 `.env.example` 참고.
 
-- `NEXT_PUBLIC_SITE_URL`: canonical/OG/sitemap 기준 URL (예: `https://your-domain.com`)
+- `NEXT_PUBLIC_SITE_URL`: canonical/OG/sitemap 기준 URL  
+  - 운영 예: [https://voice-fishing-rtwi.vercel.app](https://voice-fishing-rtwi.vercel.app/)
 
 ## 배포
 

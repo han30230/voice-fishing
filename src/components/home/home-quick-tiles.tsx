@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import {
+  ArrowRight,
   BadgeAlert,
   Landmark,
   PhoneCall,
@@ -32,27 +33,33 @@ export function HomeQuickTiles({
   tiles: { id: string; title: string; desc: string; href: string; icon: keyof typeof ICONS }[];
 }) {
   return (
-    <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {tiles.map((t) => {
         const Icon = ICONS[t.icon] ?? BadgeAlert;
         return (
-        <Card key={t.href} className="hover:border-ring/60">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <span className="grid h-9 w-9 place-items-center rounded-xl bg-muted text-brand">
+        <Card
+          key={t.href}
+          className="group border-border/70 hover:-translate-y-0.5 hover:border-brand/25"
+        >
+          <CardHeader className="space-y-3 pb-2">
+            <CardTitle className="flex items-start gap-3 text-[16px] leading-snug">
+              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-brand-muted to-muted text-brand ring-1 ring-brand/10 transition group-hover:from-brand/10 group-hover:to-brand-muted">
                 <Icon className="h-5 w-5" aria-hidden />
               </span>
-              {t.title}
+              <span className="pt-0.5">{t.title}</span>
             </CardTitle>
-            <CardDescription>{t.desc}</CardDescription>
+            <CardDescription className="text-[14px] leading-relaxed">
+              {t.desc}
+            </CardDescription>
           </CardHeader>
           <CardContent className="pt-0">
-            <Button asChild variant="outline" className="w-full rounded-xl">
+            <Button asChild variant="outline" className="w-full rounded-2xl border-dashed group-hover:border-brand/35 group-hover:bg-brand-muted/40">
               <Link
                 href={t.href}
                 onClick={() => trackEvent("home.emergency_tile_click", { tileId: t.id, href: t.href })}
               >
-                지금 5분 대응 보기
+                5분 대응 보기
+                <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" aria-hidden />
               </Link>
             </Button>
           </CardContent>

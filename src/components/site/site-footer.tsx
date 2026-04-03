@@ -1,54 +1,74 @@
 import Link from "next/link";
+import { Shield } from "lucide-react";
+
+const quick = [
+  { href: "/check", label: "자가진단" },
+  { href: "/emergency", label: "긴급" },
+  { href: "/scams", label: "유형" },
+  { href: "/recovery", label: "회복" },
+  { href: "/evidence", label: "증거" },
+  { href: "/family", label: "가족" },
+  { href: "/help", label: "도움" },
+];
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-border bg-background">
-      <div className="mx-auto w-full max-w-6xl px-4 py-10">
-        <div className="grid gap-6 md:grid-cols-3">
-          <div>
-            <div className="text-[15px] font-semibold">안심콜</div>
-            <p className="mt-2 text-[13px] leading-6 text-muted-foreground">
-              이 사이트는 독립적인 실용 안내 서비스입니다. 정부/경찰/금융기관을
-              사칭하지 않습니다. 생명·신체 위험 또는 즉시 조치가 필요한 경우에는
-              공식 기관에 먼저 연락하세요.
-            </p>
-          </div>
-          <div className="grid grid-cols-2 gap-3 text-[14px]">
-            <Link className="text-muted-foreground hover:text-foreground" href="/check">
-              1분 자가진단
-            </Link>
-            <Link className="text-muted-foreground hover:text-foreground" href="/emergency">
-              긴급 대응
-            </Link>
-            <Link className="text-muted-foreground hover:text-foreground" href="/scams">
-              사기 유형
-            </Link>
-            <Link className="text-muted-foreground hover:text-foreground" href="/recovery">
-              피해 회복
-            </Link>
-            <Link className="text-muted-foreground hover:text-foreground" href="/evidence">
-              증거 정리
-            </Link>
-            <Link className="text-muted-foreground hover:text-foreground" href="/family">
-              가족/어르신
-            </Link>
-          </div>
-          <div>
-            <div className="text-[14px] font-semibold">안전 안내</div>
-            <ul className="mt-2 space-y-2 text-[13px] leading-6 text-muted-foreground">
-              <li>- 의심되면 통화를 끊고, 내가 아는 번호로 다시 확인하세요.</li>
-              <li>- 앱 설치/원격제어/송금/OTP 공유 요청은 매우 위험 신호입니다.</li>
-              <li>- 증거(문자, 링크, 계좌, 앱 목록, 통화기록)를 남기면 도움이 됩니다.</li>
-            </ul>
-          </div>
-        </div>
+    <footer className="no-print border-t border-border/80">
+      <div className="bg-[#0b1426] text-white">
+        <div className="mx-auto w-full max-w-6xl px-4 py-12">
+          <div className="grid gap-10 md:grid-cols-12">
+            <div className="md:col-span-5">
+              <div className="flex items-center gap-3">
+                <span className="grid h-10 w-10 place-items-center rounded-2xl bg-white/10 ring-1 ring-white/15">
+                  <Shield className="h-5 w-5 text-white" aria-hidden />
+                </span>
+                <div>
+                  <div className="text-[16px] font-semibold tracking-tight">안심콜</div>
+                  <div className="text-[13px] text-white/65">보이스피싱·스미싱 대응 안내</div>
+                </div>
+              </div>
+              <p className="mt-4 max-w-md text-[14px] leading-7 text-white/70">
+                이 사이트는 독립적인 실용 안내 서비스입니다. 정부·경찰·금융기관을 사칭하지
+                않습니다. 생명·신체 위험이 있거나 즉시 조치가 필요하면 공식 기관에 먼저
+                연락하세요.
+              </p>
+            </div>
 
-        <div className="mt-8 text-[12px] text-muted-foreground">
-          © {new Date().getFullYear()} AnsymCall. 실서비스에서는 운영 주체/정책/공식
-          연락처를 명확히 기재하세요.
+            <div className="md:col-span-4">
+              <div className="text-[12px] font-semibold uppercase tracking-wider text-white/50">
+                바로가기
+              </div>
+              <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
+                {quick.map((q) => (
+                  <Link
+                    key={q.href}
+                    href={q.href}
+                    className="rounded-xl px-3 py-2 text-[14px] font-medium text-white/75 transition hover:bg-white/10 hover:text-white"
+                  >
+                    {q.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            <div className="md:col-span-3">
+              <div className="text-[12px] font-semibold uppercase tracking-wider text-white/50">
+                기억할 한 줄
+              </div>
+              <ul className="mt-3 space-y-2 text-[13px] leading-6 text-white/70">
+                <li>의심되면 통화를 끊고, 내가 아는 공식 번호로 확인</li>
+                <li>앱·원격·송금·OTP 요청은 고위험 신호</li>
+                <li>문자·링크·계좌·통화기록은 증거로 남기기</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="mt-10 border-t border-white/10 pt-6 text-[12px] text-white/45">
+            © {new Date().getFullYear()} 안심콜. 운영 시 운영 주체·정책·공식 연락처를 명확히
+            기재하세요.
+          </div>
         </div>
       </div>
     </footer>
   );
 }
-
