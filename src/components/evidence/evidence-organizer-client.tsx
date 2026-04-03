@@ -16,7 +16,6 @@ import {
   buildReportSummary,
   buildTimelineText,
 } from "@/lib/evidence/summary";
-import { emptyDraft } from "@/lib/evidence/storage";
 import { useEvidenceDraft } from "@/hooks/use-evidence-draft";
 import { trackEvent } from "@/lib/analytics";
 import type { TimelineEntry } from "@/schemas/domain";
@@ -182,7 +181,6 @@ export function EvidenceOrganizerClient() {
               className="w-full rounded-xl"
               onClick={() => {
                 reset();
-                setDraft(emptyDraft());
                 trackEvent("evidence.clear");
               }}
             >

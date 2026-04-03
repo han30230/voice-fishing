@@ -51,12 +51,20 @@ export function loadDraft(): EvidenceDraft {
 
 export function saveDraft(draft: EvidenceDraft) {
   if (typeof window === "undefined") return;
-  localStorage.setItem(KEY, JSON.stringify(draft));
+  try {
+    localStorage.setItem(KEY, JSON.stringify(draft));
+  } catch {
+    // QuotaExceededError, SecurityError(비공개 모드) 등
+  }
 }
 
 export function clearDraft() {
   if (typeof window === "undefined") return;
-  localStorage.removeItem(KEY);
+  try {
+    localStorage.removeItem(KEY);
+  } catch {
+    // ignore
+  }
 }
 
 function migrateDraft(parsed: unknown): unknown {
