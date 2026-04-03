@@ -128,7 +128,7 @@ export function SiteHeader({ className }: { className?: string }) {
       {open ? (
         <div
           id="mobile-nav"
-          className="fixed inset-0 z-[60] bg-black/35 lg:hidden"
+          className="fixed inset-0 z-[100] bg-black/55 backdrop-blur-[2px] lg:hidden"
           role="dialog"
           aria-modal="true"
           aria-label="모바일 메뉴"

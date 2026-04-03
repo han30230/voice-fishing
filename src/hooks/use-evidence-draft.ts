@@ -10,16 +10,24 @@ function emit() {
 }
 
 function subscribe(onStoreChange: () => void) {
-  window.addEventListener("storage", onStoreChange);
-  window.addEventListener(EVENT, onStoreChange);
-  return () => {
-    window.removeEventListener("storage", onStoreChange);
-    window.removeEventListener(EVENT, onStoreChange);
-  };
+  try {
+    window.addEventListener("storage", onStoreChange);
+    window.addEventListener(EVENT, onStoreChange);
+    return () => {
+      window.removeEventListener("storage", onStoreChange);
+      window.removeEventListener(EVENT, onStoreChange);
+    };
+  } catch {
+    return () => {};
+  }
 }
 
 function getSnapshot(): EvidenceDraft {
-  return loadDraft();
+  try {
+    return loadDraft();
+  } catch {
+    return emptyDraft();
+  }
 }
 
 function getServerSnapshot(): EvidenceDraft {
@@ -30,7 +38,7 @@ export function useEvidenceDraft() {
   const draft = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   const setDraft = useCallback((updater: EvidenceDraft | ((prev: EvidenceDraft) => EvidenceDraft)) => {
-    const prev = EvidenceDraftSchema.parse(loadDraft());
+    const prev = EvidenceDraftSchema.parse(getSnapshot());
     const next = typeof updater === "function" ? updater(prev) : updater;
     const normalized = EvidenceDraftSchema.parse({ ...next, updatedAt: nowIso() });
     saveDraft(normalized);
